@@ -1,0 +1,135 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String     @id @default(cuid())
+  email     String     @unique
+  name      String
+  role      Role       @default(SECRETARY)
+  password  String
+  activities Activity[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+}
+
+model Student {
+  id             String    @id @default(cuid())
+  firstName      String
+  lastName       String
+  dateOfBirth    DateTime
+  // grade          Int
+  enrollmentDate DateTime
+  address        String?
+  phoneNumber    String?
+  email          String?
+  guardianName   String
+  guardianPhone  String
+  guardianEmail  String?
+  classes        ClassEnrollment[]
+  payments       Payment[]
+  activities     Activity[]
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model Class {
+  id                   String    @id @default(cuid())
+  name                 String
+  description          String?
+  startDate            DateTime
+  endDate              DateTime
+  capacity             Int
+  teacher              String
+  totalFee             Float
+  registrationFee      Float
+  firstInstallmentFee  Float
+  secondInstallmentFee Float
+  students             ClassEnrollment[]
+  payments             Payment[]
+  activities           Activity[]
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+}
+
+model ClassEnrollment {
+  id        String   @id @default(cuid())
+  student   Student  @relation(fields: [studentId], references: [id])
+  studentId String
+  class     Class    @relation(fields: [classId], references: [id])
+  classId   String
+  enrolledAt DateTime @default(now())
+
+  @@unique([studentId, classId])
+}
+
+model Payment {
+  id          String       @id @default(cuid())
+  amount      Float
+  date        DateTime
+  method      PaymentMethod
+  type        PaymentType
+  description String?
+  student     Student      @relation(fields: [studentId], references: [id])
+  studentId   String
+  class       Class        @relation(fields: [classId], references: [id])
+  classId     String
+  activity    Activity?
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+}
+
+model Activity {
+  id          String        @id @default(cuid())
+  action      String
+  description String?
+  performedBy User          @relation(fields: [userId], references: [id])
+  userId      String
+  student     Student?      @relation(fields: [studentId], references: [id])
+  studentId   String?
+  class       Class?        @relation(fields: [classId], references: [id])
+  classId     String?
+  payment     Payment?      @relation(fields: [paymentId], references: [id])
+  paymentId   String?       @unique
+  activityType ActivityType
+  createdAt   DateTime      @default(now())
+}
+
+enum Role {
+  ADMIN
+  SECRETARY
+  TEACHER
+}
+
+enum PaymentMethod {
+  CASH
+  CREDIT_CARD
+  BANK_TRANSFER
+  CHECK
+}
+
+enum PaymentType {
+  REGISTRATION
+  FIRST_INSTALLMENT
+  SECOND_INSTALLMENT
+}
+
+enum ActivityType {
+  STUDENT_REGISTRATION
+  CLASS_CREATION
+  PAYMENT_RECEIVED
+  STUDENT_ENROLLED
+  USER_CREATED
+  OTHER
+}
