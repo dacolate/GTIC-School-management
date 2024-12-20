@@ -44,7 +44,7 @@ export async function newClass(
     const Real_secondInstalmentDeadline = new Date(secondInstalmentDeadline);
     const Real_startDate = new Date(startDate);
 
-    const lol = await prisma.class.create({
+    await prisma.class.create({
       data: {
         name,
         capacity,
@@ -54,7 +54,7 @@ export async function newClass(
         description,
         secondInstallmentFee: secondInstallmentFee,
         totalFee: firstInstallmentFee + registrationFee + secondInstallmentFee,
-        endDate: 2,
+        endDate: Real_endDate,
         startDate: Real_startDate,
         firstInstalmentDeadLine: Real_firstInstalmentDeadline,
         secondInstalmentDeadLine: Real_secondInstalmentDeadline,
