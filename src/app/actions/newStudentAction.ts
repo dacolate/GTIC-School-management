@@ -128,11 +128,11 @@ export async function newStudent(
 
     const birthDate = new Date(birthday);
     const firstDL = firstInstalmentDeadline
-      ? new Date(firstInstalmentDeadline!)
+      ? new Date(firstInstalmentDeadline)
       : undefined;
 
     const secondDL = secondInstalmentDeadline
-      ? new Date(secondInstalmentDeadline!)
+      ? new Date(secondInstalmentDeadline)
       : undefined;
 
     // Check if the student already exists

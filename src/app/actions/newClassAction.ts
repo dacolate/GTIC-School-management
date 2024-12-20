@@ -56,8 +56,8 @@ export async function newClass(
         totalFee: firstInstallmentFee + registrationFee + secondInstallmentFee,
         endDate: Real_endDate,
         startDate: Real_startDate,
-        firstInstalmentDeadLine: Real_firstInstalmentDeadline,
-        secondInstalmentDeadLine: Real_secondInstalmentDeadline,
+        DeadlineFirst: Real_firstInstalmentDeadline,
+        DeadlineSecond: Real_secondInstalmentDeadline,
       },
     });
 

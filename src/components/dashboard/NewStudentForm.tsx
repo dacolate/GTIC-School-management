@@ -532,7 +532,7 @@ export default function NewStudentForm(classInfos: ClassListProps) {
                     </div>
                   )} */}
                   {selectedClass && (
-                    <div className="">
+                    <div className="mt-2 bg-muted">
                       {" "}
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div className="flex items-center space-x-2">

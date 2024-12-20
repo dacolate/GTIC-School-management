@@ -41,8 +41,8 @@ model Class {
   description              String?
   startDate                DateTime          @default(now())
   endDate                  DateTime
-  firstInstalmentDeadLine  DateTime
-  secondInstalmentDeadLine DateTime
+  DeadlineFirst  DateTime
+  DeadlineSecond DateTime
   capacity                 Int
   teacher                  String
   totalFee                 Float
