@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use server";
 
 import prisma from "@/lib/prisma";
@@ -62,7 +63,7 @@ export async function newClass(
 
     return null;
   } catch (error) {
-    console.log(error.stack);
+    // console.log(error);
     return {
       error: "Something went wrong. Please try again.",
     };

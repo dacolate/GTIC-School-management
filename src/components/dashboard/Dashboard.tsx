@@ -3,15 +3,8 @@ import { QuickStats } from "./QuickStats";
 import { PendingTasks } from "./PendingTasks";
 import { RecentActivities } from "./RecentActivities";
 import { QuickActions } from "./QuickActions";
-import prisma from "@/lib/prisma";
 
 export default async function Dashboard() {
-  const classes = await prisma.class.findMany({
-    select:{
-      name: true,
-    }
-  })
-  const classNames = classes.map((classs) => (classs.name))
   return (
     <div className="mx-auto pl-4 py-4">
       <h1 className="text-3xl font-bold mb-6">Dashboard</h1>
@@ -23,7 +16,7 @@ export default async function Dashboard() {
         </div>
         <div>
         <PendingTasks />
-        <QuickActions classList={classNames} />
+        <QuickActions/>
       </div>
       </div>
       
