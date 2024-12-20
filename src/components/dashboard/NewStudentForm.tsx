@@ -107,8 +107,8 @@ interface ClassInfo {
   registrationFee: number;
   firstInstallmentFee: number;
   secondInstallmentFee: number;
-  firstInstalmentDeadLine: Date;
-  secondInstalmentDeadLine: Date;
+  DeadlineFirst: Date;
+  DeadlineSecond: Date;
   startDate: Date;
   endDate: Date;
   totalFee: number;
@@ -155,13 +155,15 @@ export default function NewStudentForm(classInfos: ClassListProps) {
       paymentAmount: "",
       paymentMethod: "Cash",
       firstInstalmentDeadline:
-        selectedClass?.firstInstalmentDeadLine?.toISOString().split("T")[0] || "",
+        selectedClass?.DeadlineFirst?.toISOString().split("T")[0] ||
+        "",
       secondInstalmentDeadline:
-        selectedClass?.secondInstalmentDeadLine?.toISOString().split("T")[0] || "",
+        selectedClass?.DeadlineSecond?.toISOString().split("T")[0] ||
+        "",
     },
     mode: "onChange",
   });
-  
+
   const {
     formState: { errors, isValid },
     watch,
@@ -575,7 +577,7 @@ export default function NewStudentForm(classInfos: ClassListProps) {
                             <p className="text-sm text-muted-foreground">
                               Due:{" "}
                               {
-                                selectedClass.firstInstalmentDeadLine
+                                selectedClass.DeadlineFirst
                                   .toISOString()
                                   .split("T")[0]
                               }
@@ -591,7 +593,7 @@ export default function NewStudentForm(classInfos: ClassListProps) {
                             <p className="text-sm text-muted-foreground">
                               Due:{" "}
                               {
-                                selectedClass.secondInstalmentDeadLine
+                                selectedClass.DeadlineSecond
                                   .toISOString()
                                   .split("T")[0]
                               }

@@ -12,8 +12,8 @@ const classes = await prisma.class.findMany({
     registrationFee: true,
     firstInstallmentFee: true,
     secondInstallmentFee: true,
-    firstInstalmentDeadLine: true,
-    secondInstalmentDeadLine: true,
+    DeadlineFirst: true,
+    DeadlineSecond: true,
     startDate: true,
     endDate: true,
     totalFee: true,
@@ -22,6 +22,7 @@ const classes = await prisma.class.findMany({
 })
 
 export default function NewStudentPage() {
+  console.log("classes",classes)
   return (
     <div className="flex flex-col lg:flex-row gap-6">
       <div className="flex-grow">
