@@ -48,11 +48,11 @@ export async function newClass(
       data: {
         name,
         capacity,
-        firstInstallmentFee,
+        firstInstallmentFee: firstInstallmentFee,
         registrationFee,
         teacher,
         description,
-        secondInstallmentFee,
+        secondInstallmentFee: secondInstallmentFee,
         totalFee: firstInstallmentFee + registrationFee + secondInstallmentFee,
         endDate: Real_endDate,
         startDate: Real_startDate,
