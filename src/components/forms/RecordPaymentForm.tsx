@@ -38,7 +38,7 @@ const studentsByClass:  {
 async function recordPayment(data: z.infer<typeof formSchema>) {
   // Simulate API call
   await new Promise(resolve => setTimeout(resolve, 1000))
-  console.log('Payment recorded:', data)
+  // console.log('Payment recorded:', data)
   // In a real application, you would make an API call here
   return { success: true }
 }

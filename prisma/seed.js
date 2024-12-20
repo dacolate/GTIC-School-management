@@ -63,7 +63,7 @@ function main() {
                         })];
                 case 2:
                     _b.apply(_a, [_c.sent()]);
-                    console.log('lol');
+                    // console.log('lol');
                     _c.label = 3;
                 case 3:
                     i++;

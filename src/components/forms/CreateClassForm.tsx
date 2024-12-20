@@ -1,8 +1,8 @@
-import { useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import * as z from 'zod'
-import { Button } from '@/components/ui/button'
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -10,32 +10,27 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 // import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { toast } from '@/hooks/use-toast'
+import { toast } from "@/hooks/use-toast";
+import { classFormSchema, classFormValues } from "@/lib/validation";
+import { newClass } from "@/app/actions/newClassAction";
 
-const formSchema = z.object({
-  className: z.string().min(2, { message: "Class name must be at least 2 characters." }),
-  // gradeLevel: z.string().min(1, { message: "Please select a grade level." }),
-  teacherName: z.string().min(2, { message: "Teacher name must be at least 2 characters." }),
-  roomNumber: z.string().min(1, { message: "Room number is required." }),
-  maxStudents: z.string().regex(/^\d+$/, { message: "Please enter a valid number." }),
-})
-
-async function createClass(data: z.infer<typeof formSchema>) {
+async function createClass(data: classFormValues) {
   // Simulate API call
-  await new Promise(resolve => setTimeout(resolve, 1000))
-  console.log('Class created:', data)
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+  console.log("Class created:", data);
   // In a real application, you would make an API call here
-  return { success: true }
+  return { success: true };
 }
 
 export function CreateClassForm({ onSuccess }: { onSuccess: () => void }) {
-  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState<string>();
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<classFormValues>({
+    resolver: zodResolver(classFormSchema),
     defaultValues: {
       className: "",
       // gradeLevel: "",
@@ -43,28 +38,51 @@ export function CreateClassForm({ onSuccess }: { onSuccess: () => void }) {
       roomNumber: "",
       maxStudents: "",
     },
-  })
+  });
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {
-    setIsSubmitting(true)
-    try {
-      await createClass(values)
-      toast({
-        title: "Class Created",
-        description: `${values.className} has been successfully created.`,
-      })
-      form.reset()
-      onSuccess()
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    } catch (error) {
+  async function onSubmit(values: classFormValues) {
+    setError(undefined);
+    setIsSubmitting(true);
+
+    // Trigger validation first
+    const isValid = await form.trigger();
+
+    if (!isValid) {
+
+      const error = await newClass(values);
+      setError(error?.error);
       toast({
         title: "Error",
         description: "Failed to create class. Please try again.",
         variant: "destructive",
-      })
-    } finally {
-      setIsSubmitting(false)
+      });
+    } else {
+      toast({
+        title: "Class Created",
+        description: `${values.className} has been successfully created.`,
+      });
+      form.reset();
+      onSuccess();
     }
+
+    // try {
+    //   await createClass(values)
+    //   toast({
+    //     title: "Class Created",
+    //     description: `${values.className} has been successfully created.`,
+    //   })
+    //   form.reset()
+    //   onSuccess()
+    // // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    // } catch (error) {
+    //   toast({
+    //     title: "Error",
+    //     description: "Failed to create class. Please try again.",
+    //     variant: "destructive",
+    //   })
+    // } finally {
+    //   setIsSubmitting(false)
+    // }
   }
 
   return (
@@ -151,6 +169,5 @@ export function CreateClassForm({ onSuccess }: { onSuccess: () => void }) {
         </Button>
       </form>
     </Form>
-  )
+  );
 }
-

@@ -1,24 +1,29 @@
 "use client"
 
-import { useState } from 'react'
+// import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
-import { ScrollArea } from '@/components/ui/scroll-area'
-import { UserPlus, DollarSign, FileText, Users, Bell } from 'lucide-react'
-import { NewStudentForm } from '../forms/NewStudentForm'
-import { RecordPaymentForm } from '../forms/RecordPaymentForm'
-import { InvoicesList } from '../InvoicesList'
-import { CreateClassForm } from '../forms/CreateClassForm'
+// import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
+// import { ScrollArea } from '@/components/ui/scroll-area'
+import { UserPlus, 
+  // DollarSign, FileText, 
+  Users, 
+  // Bell 
+} from 'lucide-react'
+// import { NewStudentForm } from '../forms/NewStudentForm'
+// import { RecordPaymentForm } from '../forms/RecordPaymentForm'
+// import { InvoicesList } from '../InvoicesList'
+// import { CreateClassForm } from '../forms/CreateClassForm'
+import { useRouter } from 'next/navigation'
 
 
-const quickActions = [
-  { icon: UserPlus, label: 'New Student', action: 'new-student' },
-  { icon: DollarSign, label: 'Record Payment', action: 'record-payment' },
-  { icon: FileText, label: 'Invoices', action: 'invoices' },
-  { icon: Users, label: 'Create Class', action: 'create-class' },
-  { icon: Bell, label: 'Send Notification', action: '' },
-]
+// const quickActions = [
+//   { icon: UserPlus, label: 'New Student', href: '/dashboard/newStudent' },
+//   { icon: DollarSign, label: 'Record Payment', href: 'record-payment' },
+//   { icon: FileText, label: 'Invoices', action: 'invoices' },
+//   { icon: Users, label: 'Create Class', href: '/dashboard/newClass' },
+//   { icon: Bell, label: 'Send Notification', action: '' },
+// ]
 
 // const recentActivities = [
 //   { action: 'Student registered', details: 'John Doe (Grade 10)', time: '2 hours ago' },
@@ -27,14 +32,17 @@ const quickActions = [
 // ]
 
 export function QuickActions() {
-  const [openDialog, setOpenDialog] = useState<string | null>(null)
+  // const [openDialog, setOpenDialog] = useState<string | null>(null)
+  const router = useRouter();
 
-  const handleQuickAction = (action: string) => {
-    if (action === 'new-student') {
-      setOpenDialog('new-student')
-    }
-    // Handle other actions here
-  }
+  // const handleQuickAction = (action: string) => {
+  //   if (action === 'new-student') {
+  //     setOpenDialog('new-student')
+  //   }
+  //   // Handle other actions here
+  // }
+
+   
 
   return (
       <Card className="mb-4">
@@ -42,7 +50,15 @@ export function QuickActions() {
           <CardTitle className="text-lg">Quick Actions</CardTitle>
         </CardHeader>
         <CardContent className="grid gap-2">
-          {quickActions.map((action, index) => (
+          <Button variant="outline" className="w-full justify-start" onClick={() => router.push("/dashboard/newStudent")}>
+            <UserPlus className="mr-2 h-4 w-4" />
+            {"New Student"}
+          </Button>
+          <Button variant="outline" className="w-full justify-start" onClick={() => router.push("/dashboard/newClass")}>
+            <Users className="mr-2 h-4 w-4" />
+            {"New Class"}
+          </Button>
+          {/* {quickActions.map((action, index) => (
             <Dialog key={index} open={openDialog === action.action} onOpenChange={(open) => setOpenDialog(open ? action.action : null)}>
               <DialogTrigger asChild>
                 <Button variant="outline" className="w-full justify-start" onClick={() => handleQuickAction(action.action || '')}>
@@ -51,12 +67,12 @@ export function QuickActions() {
                 </Button>
               </DialogTrigger>
               {action.action === 'new-student' && (
-                <DialogContent className="max-w-fit ">
+                <DialogContent className="max-w-[400px] max-h-[600px] ">
                   <DialogHeader>
                     <DialogTitle>Add New Student</DialogTitle>
                   </DialogHeader>
                   <ScrollArea className="max-h-[80vh] pr-4">
-                    <NewStudentForm onSuccess={() => setOpenDialog(null)} />
+                    <NewStudentForm onSuccess={() => setOpenDialog(null)} classList={classList} />
                   </ScrollArea>
                 </DialogContent>
               )}
@@ -91,7 +107,7 @@ export function QuickActions() {
                 </DialogContent>
               )}
             </Dialog>
-          ))}
+          ))} */}
         </CardContent>
       </Card>
   )

@@ -21,7 +21,7 @@ async function main() {
         },
       })
     );
-    console.log('lol')
+    // console.log('lol')
   }
 
   // Create Classes
