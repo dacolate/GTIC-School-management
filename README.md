@@ -1,36 +1,59 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# GTIC School Management
+
+An earlier full-stack implementation of the GTIC school-management system.
+
+This application models students, classes, enrollments, payments, users, and administrative activity tracking with Next.js, Prisma, and PostgreSQL.
+
+## Main Features
+
+- Student registration and records
+- Class creation and enrollment
+- Tuition and installment tracking
+- Payment records
+- User roles for administrators, secretaries, and teachers
+- Administrative activity history
+- Responsive dashboard interface
+
+## Tech Stack
+
+- **Framework:** Next.js 15
+- **Frontend:** React 19, TypeScript
+- **Database:** PostgreSQL
+- **ORM:** Prisma
+- **Forms / validation:** React Hook Form, Zod
+- **UI:** Tailwind CSS, Radix UI, Lucide React
+
+## Data Model
+
+The application includes models for:
+
+- Users and roles
+- Students
+- Classes
+- Class enrollments
+- Payments
+- Administrative activities
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/dacolate/GTIC-School-management.git
+cd GTIC-School-management
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Configure `DATABASE_URL`, generate the Prisma client, and run the development server:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npx prisma generate
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Project Evolution
 
-## Learn More
+This repository represents an earlier full-stack version of the GTIC platform. Development later evolved into separate frontend and backend repositories:
 
-To learn more about Next.js, take a look at the following resources:
+- [gtic-frontend](https://github.com/dacolate/gtic-frontend)
+- [gtic-backend](https://github.com/dacolate/gtic-backend)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Those repositories better represent the current architecture.
